@@ -21,6 +21,18 @@ class ContactController extends Controller
       $contact->save();
       return Redirect::to('app/Agenda/'.$request->agends_id);
     }
+    public function edit($id){
+      $contact = Contact::find($id);
+      $id = $contact->agends_id;
+      return view('contacts.edit',compact('contact','id'));
+    }
+    public function update($id, Request $request)
+    {
+      $contact = Contact::find($id);
+      $contact->fill($request->all());
+      $contact->save();
+      return Redirect::to('app/Agenda/'.$request->agends_id);
+    }
     public function destroy($id)
     {
       $agend = Contact::find($id)->agends_id;

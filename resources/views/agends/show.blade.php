@@ -21,7 +21,7 @@
                         <tr>
                           <td>{{$contact->name}}</td>
                           <td>{{$contact->email}}</td>
-                          <td><a href="{{url("app/Contacto/destroy/".$contact->id)}}">Eliminar</a></td>
+                          <td><a href="{{url("app/Contacto/".$contact->id."/edit")}}">Editar</a> - <a href="{{url("app/Contacto/destroy/".$contact->id)}}">Eliminar</a></td>
                         </tr>
                         @endforeach
 
