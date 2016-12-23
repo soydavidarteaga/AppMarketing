@@ -16,5 +16,10 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-
+Route::group(['prefix' => 'app'],function(){
+  Route::resource('/Agenda','GroupController');
+  Route::get('/Contacto/create/{id}','ContactController@create');
+  Route::post('/Contacto/store','ContactController@store');
+  Route::get('/Contacto/destroy/{id}','ContactController@destroy');
+});
 Route::get('/home', 'HomeController@index');
