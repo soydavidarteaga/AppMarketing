@@ -23,5 +23,6 @@ Route::group(['prefix' => 'app'],function(){
   Route::get('/Contacto/destroy/{id}','ContactController@destroy');
   Route::get('/Contacto/{id}/edit','ContactController@edit');
   Route::put('/Contacto/{id}/','ContactController@update');
+  Route::post('/EnviarMail','EmailController@SendMail');
 });
 Route::get('/home', 'HomeController@index');

@@ -11,7 +11,10 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Styles -->
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
     <link href="/css/app.css" rel="stylesheet">
+    @yield('styles')
+
 
     <!-- Scripts -->
     <script>
@@ -82,6 +85,8 @@
     </div>
 
     <!-- Scripts -->
+
     <script src="/js/app.js"></script>
+    @yield('scripts')
 </body>
 </html>

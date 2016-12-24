@@ -3,6 +3,8 @@
 namespace Marketing\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Marketing\Agend;
+use Auth;
 
 class HomeController extends Controller
 {
@@ -23,6 +25,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+      $agends = Agend::where('user_id',Auth::user()->id)->get();
+        return view('home',compact("agends"));
     }
 }

@@ -3,12 +3,12 @@
 namespace Marketing\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Marketing\Agend;
-use Redirect;
-use Auth;
 use Marketing\Contact;
+use Illuminate\Support\Facades\Mail;
+use Marketing\Mail\Masivos;
+use Redirect;
 
-class GroupController extends Controller
+class EmailController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,8 +17,7 @@ class GroupController extends Controller
      */
     public function index()
     {
-      $agends = Agend::where('user_id',Auth::user()->id)->get();
-        return view('agends.index',compact('agends'));
+        //
     }
 
     /**
@@ -28,7 +27,7 @@ class GroupController extends Controller
      */
     public function create()
     {
-        return view('agends.create');
+        //
     }
 
     /**
@@ -39,11 +38,19 @@ class GroupController extends Controller
      */
     public function store(Request $request)
     {
-        $agend = New Agend;
-        $agend->group = $request->group;
-        $agend->user_id = Auth::user()->id;
-        $agend->save();
-        return Redirect::to('app/Agenda');
+        //
+    }
+    public function SendMail(Request $request)
+    {
+      $contacts = Contact::where('agends_id',$request->agend)->get();
+      $content = $request->body;
+      $subject = $request->asunto;
+      foreach($contacts as $contact)
+      {
+        $name = $contact->name;
+        Mail::to($contact->email)->send(New Masivos($content,$subject,$name));
+      }
+      return Redirect::to('/home');
     }
 
     /**
@@ -54,9 +61,7 @@ class GroupController extends Controller
      */
     public function show($id)
     {
-      $agend = Agend::find($id);
-      $contacts = Contact::where('agends_id',$id)->get();
-        return view('agends.show',compact('agend','contacts'));
+        //
     }
 
     /**
@@ -67,8 +72,7 @@ class GroupController extends Controller
      */
     public function edit($id)
     {
-        $agend = Agend::find($id);
-        return view('agends.edit',compact('agend'));
+        //
     }
 
     /**
@@ -80,10 +84,7 @@ class GroupController extends Controller
      */
     public function update(Request $request, $id)
     {
-      $agend = Agend::find($id);
-      $agend->group = $request->group;
-      $agend->save();
-      return Redirect::to('app/Agenda');
+        //
     }
 
     /**
@@ -94,7 +95,6 @@ class GroupController extends Controller
      */
     public function destroy($id)
     {
-        $agend = Agend::destroy($id);
-        return Redirect::to('app/Agenda');
+        //
     }
 }
