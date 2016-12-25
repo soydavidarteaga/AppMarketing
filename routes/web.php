@@ -16,13 +16,18 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-Route::group(['prefix' => 'app'],function(){
-  Route::resource('/Agenda','GroupController');
-  Route::get('/Contacto/create/{id}','ContactController@create');
-  Route::post('/Contacto/store','ContactController@store');
-  Route::get('/Contacto/destroy/{id}','ContactController@destroy');
-  Route::get('/Contacto/{id}/edit','ContactController@edit');
-  Route::put('/Contacto/{id}/','ContactController@update');
-  Route::post('/EnviarMail','EmailController@SendMail');
+Route::group(['middleware' => 'auth'], function() {
+  Route::group(['prefix' => 'app'],function(){
+    Route::resource('/Agenda','GroupController');
+    Route::get('/Contacto/create/{id}','ContactController@create');
+    Route::post('/Contacto/store','ContactController@store');
+    Route::get('/Contacto/destroy/{id}','ContactController@destroy');
+    Route::get('/Contacto/{id}/edit','ContactController@edit');
+    Route::put('/Contacto/{id}/','ContactController@update');
+    Route::post('/EnviarMail','EmailController@SendMail');
+    Route::resource('/Configuraciones','ConfigController');
+    Route::resource('/Mensajes','MessageController');
+    Route::get('/Mensajes/{id}/SendMail','MessageController@SendMail');
+  });
 });
 Route::get('/home', 'HomeController@index');
